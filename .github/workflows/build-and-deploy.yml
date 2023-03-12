@@ -1,21 +1,13 @@
 name: Build and deploy
 on:
   workflow_dispatch:
-    inputs:
-      key-id:
-        type: string
-        required: true
-        default: AKIA5VFXTD43RAKW4JHQ
-      secret-key:
-        type: string
-        required: true
 
 jobs:
   provision:
     runs-on: ubuntu-latest
     env:
-      AWS_ACCESS_KEY_ID: ${{ inputs.key-id }}
-      AWS_SECRET_ACCESS_KEY: ${{ inputs.key }}
+      AWS_ACCESS_KEY_ID: ${{ secrets.key_id }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.secret_key }}
     steps:
       - name: ListCheck
         run: |
