@@ -5,6 +5,9 @@ on:
       stack-name:
         type: string
         default: CloudySky
+      region:
+        type: string
+        default: eu-west-2
 
 jobs:
   provision:
@@ -13,7 +16,7 @@ jobs:
     env:
       AWS_ACCESS_KEY_ID: ${{ secrets.key_id }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.secret_key }}
-      AWS_REGION: eu-west-2
+      AWS_REGION: ${{ inputs.region }}
     steps:
       - name: WhichCheck
         run: which aws
@@ -23,8 +26,4 @@ jobs:
         run: aws cloudformation list-stacks
       - name: Checkout self
         uses: actions/checkout@v3
-      - name: AWS creds
-        uses: aws-actions/configure-aws-credentials@v2
-        with:
-          role-to-assume: arn:aws:iam::111111111111:role/my-github-actions-role-test
-          aws-region: eu-west-2
+
