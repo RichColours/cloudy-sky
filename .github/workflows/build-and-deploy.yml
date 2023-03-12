@@ -1,5 +1,14 @@
 name: Build and deploy
-on: [workflow_dispatch]
+on:
+  workflow_dispatch:
+    inputs:
+      key-id:
+        type: string
+        required: true
+        default: AKIA5VFXTD43RAKW4JHQ
+      secret-key:
+        type: string
+        required: true
 
 jobs:
   provision:
