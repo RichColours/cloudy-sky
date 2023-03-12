@@ -13,7 +13,13 @@ on:
 jobs:
   provision:
     runs-on: ubuntu-latest
+    env:
+      AWS_ACCESS_KEY_ID: ${{ inputs.key-id }}
+      AWS_SECRET_ACCESS_KEY: ${{ inputs.key }}
     steps:
+      - name: ListCheck
+        run: |
+          aws cloudformation list-stacks
       - name: Checkout self
         uses: actions/checkout@v3
       - name: AWS creds
