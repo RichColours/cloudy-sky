@@ -1,17 +1,21 @@
 name: Build and deploy
 on:
   workflow_dispatch:
+    inputs:
+      stack-name:
+        type: string
+        default: CloudySky
 
 jobs:
   provision:
     runs-on: ubuntu-latest
+    environment: PersonalDev
     env:
       AWS_ACCESS_KEY_ID: ${{ secrets.key_id }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.secret_key }}
     steps:
       - name: ListCheck
-        run: |
-          aws cloudformation list-stacks
+        run: aws cloudformation list-stacks
       - name: Checkout self
         uses: actions/checkout@v3
       - name: AWS creds
