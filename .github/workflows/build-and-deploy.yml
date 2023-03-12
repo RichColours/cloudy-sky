@@ -1,0 +1,10 @@
+name: Build and deploy
+on: [workflow_dispatch]
+
+jobs:
+  provision:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+    
+      
