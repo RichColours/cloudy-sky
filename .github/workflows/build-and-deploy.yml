@@ -13,7 +13,12 @@ jobs:
     env:
       AWS_ACCESS_KEY_ID: ${{ secrets.key_id }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.secret_key }}
+      AWS_REGION: eu-west-2
     steps:
+      - name: WhichCheck
+        run: which aws
+      - name: AwsHelpCheck
+        run: aws --help
       - name: ListCheck
         run: aws cloudformation list-stacks
       - name: Checkout self
