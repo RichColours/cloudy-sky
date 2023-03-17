@@ -1,30 +1,5 @@
 AWSTemplateFormatVersion: "2010-09-09"
-Description: Cloudy Sky Cfn
+Description: "Cloudy Sky Cfn"
 Resources:
   DeploymentBucket:
-    Type: AWS::S3::Bucket
-
-#
-#{
-#
-#    "Description": "My Lambdas",
-#
-#    "Resources": {
-#
-#        "MyLambdaA": {
-#            "Type" : "AWS::Lambda::Function",
-#            "Properties": {
-#                "Architectures": ["arm64"],
-#                "Code": "export xxxxxxxxxx",
-#                "Handler": "TODO",
-#                "PackageType": "Zip",
-#                "ReservedConcurrentExecutions": 0,
-#                "Role": String,
-#                "Runtime": "java11",
-#                "Timeout" : 10,
-#            }
-#        }
-#
-#
-#    }
-#}
+    Type: "AWS::S3::Bucket"
