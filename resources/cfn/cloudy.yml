@@ -43,5 +43,5 @@ Resources:
             console.log(event)
           }
       Handler: "index.handler"
-      Role: !GetAtt EventSinkLambdaExecutionRole.ARN
+      Role: !GetAtt EventSinkLambdaExecutionRole.Arn
       Runtime: "nodejs18.x"
