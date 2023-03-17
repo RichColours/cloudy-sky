@@ -1,0 +1,29 @@
+name: Build and deploy
+on:
+  workflow_dispatch:
+    inputs:
+      stack-name:
+        type: string
+        default: CloudySky
+      region:
+        type: string
+        default: eu-west-2
+
+jobs:
+  provision:
+    runs-on: ubuntu-latest
+    environment: PersonalDev
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.key_id }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.secret_key }}
+      AWS_REGION: ${{ inputs.region }}
+    steps:
+      - name: WhichCheck
+        run: which aws
+      - name: AwsHelpCheck
+        run: aws --help
+      - name: ListCheck
+        run: aws cloudformation list-stacks
+      - name: Checkout self
+        uses: actions/checkout@v3
+
