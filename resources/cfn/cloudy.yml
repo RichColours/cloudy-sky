@@ -1,5 +1,47 @@
 AWSTemplateFormatVersion: "2010-09-09"
 Description: "Cloudy Sky Cfn"
+
 Resources:
+
   DeploymentBucket:
     Type: "AWS::S3::Bucket"
+
+  EventSinkLambdaExecutionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: "Allow"
+            Principal:
+              Service: "lambda.amazonaws.com"
+            Action: "sts:AssumeRole"
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+#      Policies:
+#        - PolicyName: root
+#          PolicyDocument:
+#            Version: 2012-10-17
+#            Statement:
+#              - Sid: IamListAccess
+#                Effect: Allow
+#                Action:
+#                  - 'iam:ListRoles'
+#                  - 'iam:ListUsers'
+#                Resource: '*'
+
+  EventSinkLambda:
+    Type: AWS::Lambda::Function
+    Properties:
+      Architectures:
+        - "arm64"
+      Code:
+        ZipFile: |
+          var aws = require('aws-sdk')
+          exports.handler = async function(event, context) {
+            console.log("Event received!")
+            console.log(event)
+          }
+      Handler: "index.handler"
+      Role: !GetAtt EventSinkLambdaExecutionRole.ARN
+      Runtime: "nodejs18.x"
