@@ -7,7 +7,7 @@ on:
         default: CloudySky
       region:
         type: string
-        default: eu-west-2
+        default: ap-southeast-1
 
 jobs:
   provision:
@@ -26,4 +26,9 @@ jobs:
         run: aws cloudformation list-stacks
       - name: Checkout self
         uses: actions/checkout@v3
+      - name: Create-update Stack
+        shell: bash
+        run: |
+          aws cloudformation create-stack --stack-name ${{ inputs.stack-name }} --template-body $(cat ./resources/cfn/cloudy.yml)
+
 
