@@ -26,7 +26,8 @@ jobs:
         run: aws cloudformation list-stacks
       - name: Checkout self
         uses: actions/checkout@v3
+      - name: Show cfn
+        run: cat $GITHUB_WORKSPACE/resources/cfn/cloudy.yml
       - name: Create-update Stack
-        shell: bash
         run: |
-          aws cloudformation create-stack --stack-name ${{ inputs.stack-name }} --template-body '$(cat ./resources/cfn/cloudy.yml)'
+          aws cloudformation create-stack --stack-name ${{ inputs.stack-name }} --template-body '$(cat $GITHUB_WORKSPACE/resources/cfn/cloudy.yml)'
