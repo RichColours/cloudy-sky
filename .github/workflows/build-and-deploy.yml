@@ -29,6 +29,4 @@ jobs:
       - name: Create-update Stack
         shell: bash
         run: |
-          aws cloudformation create-stack --stack-name ${{ inputs.stack-name }} --template-body $(cat ./resources/cfn/cloudy.yml)
-
-
+          aws cloudformation create-stack --stack-name ${{ inputs.stack-name }} --template-body '$(cat ./resources/cfn/cloudy.yml)'
