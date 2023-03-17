@@ -30,4 +30,5 @@ jobs:
         run: cat $GITHUB_WORKSPACE/resources/cfn/cloudy.yml
       - name: Create-update Stack
         run: |
-          aws cloudformation create-stack --stack-name ${{ inputs.stack-name }} --template-body '$(cat $GITHUB_WORKSPACE/resources/cfn/cloudy.yml)'
+          aws cloudformation create-stack --stack-name ${{ inputs.stack-name }} --template-file $GITHUB_WORKSPACE/resources/cfn/cloudy.yml
+
