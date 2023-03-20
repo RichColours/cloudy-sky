@@ -22,7 +22,7 @@ jobs:
         run: echo "::warning title:Not got any code to compile!"
       - name: Provision cloudy01
         run: aws cloudformation deploy --stack-name ${{ inputs.stack-name }} --template-file $GITHUB_WORKSPACE/resources/cfn/cloudy01.yml --capabilities CAPABILITY_IAM
-      - name: Provision cloudy01
+      - name: Provision cloudy02
         run: aws cloudformation deploy --stack-name ${{ inputs.stack-name }} --template-file $GITHUB_WORKSPACE/resources/cfn/cloudy02.yml --capabilities CAPABILITY_IAM
 
 
