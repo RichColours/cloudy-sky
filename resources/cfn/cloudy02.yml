@@ -3,13 +3,6 @@ Description: "Cloudy Sky Cfn"
 
 Resources:
 
-  DeploymentBucket:
-    Type: "AWS::S3::Bucket"
-    Properties:
-      OwnershipControls:
-        Rules:
-          - ObjectOwnership: BucketOwnerEnforced
-
   EventSinkLambdaExecutionRole:
     Type: AWS::IAM::Role
     Properties:

@@ -18,18 +18,11 @@ jobs:
       AWS_SECRET_ACCESS_KEY: ${{ secrets.secret_key }}
       AWS_REGION: ${{ inputs.region }}
     steps:
-      - name: WhichCheck
-        run: which aws
-      - name: AwsHelpCheck
-        run: aws --help
-      - name: ListCheck
-        run: aws cloudformation list-stacks
-      - name: Checkout self
-        uses: actions/checkout@v3
-      - name: Show cfn
-        run: cat $GITHUB_WORKSPACE/resources/cfn/cloudy.yml
-      - name: Create-update Stack
-        run: |
-          aws cloudformation deploy --stack-name ${{ inputs.stack-name }} --template-file $GITHUB_WORKSPACE/resources/cfn/cloudy.yml --capabilities CAPABILITY_IAM
+      - name: Compile all code
+        run: echo "::warning title:Not got any code to compile!"
+      - name: Provision cloudy01
+        run: aws cloudformation deploy --stack-name ${{ inputs.stack-name }} --template-file $GITHUB_WORKSPACE/resources/cfn/cloudy01.yml --capabilities CAPABILITY_IAM
+      - name: Provision cloudy01
+        run: aws cloudformation deploy --stack-name ${{ inputs.stack-name }} --template-file $GITHUB_WORKSPACE/resources/cfn/cloudy02.yml --capabilities CAPABILITY_IAM
 
 
