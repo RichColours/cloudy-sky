@@ -25,7 +25,7 @@ Resources:
                 Action:
                   - 's3:GetObject'
                 Resource:
-                  - !GetAtt DeploymentBucket.Arn
+                  - !ImportValue Cloudy01-DeploymentBucketArn
 
   EventSinkLambda:
     Type: AWS::Lambda::Function
@@ -39,7 +39,7 @@ Resources:
 #            console.log("Event received!")
 #            console.log(event)
 #          }
-        S3Bucket: !Ref DeploymentBucket
+        S3Bucket: !ImportValue Cloudy01-DeploymentBucketName
         S3Key: EventSink.zip
       Handler: "index.handler"
       Role: !GetAtt EventSinkLambdaExecutionRole.Arn

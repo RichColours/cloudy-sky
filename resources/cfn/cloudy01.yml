@@ -9,3 +9,13 @@ Resources:
       OwnershipControls:
         Rules:
           - ObjectOwnership: BucketOwnerEnforced
+
+Outputs:
+  OutputDeploymentBucketArn:
+    Value: !GetAtt DeploymentBucket.Arn
+    Export:
+      Name: !Sub "${AWS::StackName}-DeploymentBucketArn"
+  OutputDeploymentBucketName:
+    Value: !Ref DeploymentBucket
+    Export:
+      Name: !Sub "${AWS::StackName}-DeploymentBucketName"
