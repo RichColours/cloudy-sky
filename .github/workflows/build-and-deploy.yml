@@ -24,12 +24,15 @@ jobs:
       - name: Compile all code
         run: echo "::warning title:Not got any code to compile!"
       - name: Provision cloudy01
-        run: aws cloudformation deploy --stack-name CloudyO1 --template-file $GITHUB_WORKSPACE/resources/cfn/cloudy01.yml --capabilities CAPABILITY_IAM
+        run: |
+          aws cloudformation deploy --stack-name CloudyO1 --template-file $GITHUB_WORKSPACE/resources/cfn/cloudy01.yml --capabilities CAPABILITY_IAM
       - name: Upload lambda code
         if: ${{ inputs.doUploadCode }}
-        run: aws s3 cp $GITHUB_WORKSPACE/resources/lambda-code/uselesslambda.zip s3://
+        run: |
+          aws s3 cp $GITHUB_WORKSPACE/resources/lambda-code/uselesslambda.zip s3://
       - name: Provision cloudy02
         if: ${{ inputs.doStack02 }}
-        run: aws cloudformation deploy --stack-name Cloudy02 --template-file $GITHUB_WORKSPACE/resources/cfn/cloudy02.yml --capabilities CAPABILITY_IAM
+        run: |
+          aws cloudformation deploy --stack-name Cloudy02 --template-file $GITHUB_WORKSPACE/resources/cfn/cloudy02.yml --capabilities CAPABILITY_IAM
 
 
