@@ -2,9 +2,6 @@ name: Build and deploy
 on:
   workflow_dispatch:
     inputs:
-      stack-name:
-        type: string
-        default: CloudySky
       region:
         type: string
         default: ap-southeast-1
@@ -21,8 +18,8 @@ jobs:
       - name: Compile all code
         run: echo "::warning title:Not got any code to compile!"
       - name: Provision cloudy01
-        run: aws cloudformation deploy --stack-name ${{ inputs.stack-name }} --template-file $GITHUB_WORKSPACE/resources/cfn/cloudy01.yml --capabilities CAPABILITY_IAM
+        run: aws cloudformation deploy --stack-name CloudyO1 --template-file $GITHUB_WORKSPACE/resources/cfn/cloudy01.yml --capabilities CAPABILITY_IAM
       - name: Provision cloudy02
-        run: aws cloudformation deploy --stack-name ${{ inputs.stack-name }} --template-file $GITHUB_WORKSPACE/resources/cfn/cloudy02.yml --capabilities CAPABILITY_IAM
+        run: aws cloudformation deploy --stack-name Cloudy02 --template-file $GITHUB_WORKSPACE/resources/cfn/cloudy02.yml --capabilities CAPABILITY_IAM
 
 
