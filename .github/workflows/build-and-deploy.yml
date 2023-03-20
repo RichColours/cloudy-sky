@@ -25,10 +25,10 @@ jobs:
         run: echo "::warning title:Not got any code to compile!"
       - name: DEBUG
         run: |
-          ls
           ls $GITHUB_WORKSPACE
+      - name: DEBUG
+        run: |
           cat $GITHUB_WORKSPACE/resources/cfn/cloudy01.yml
-          cat $GITHUB_WORKSPACE/resources/cfn/cloudy02.yml
       - name: Provision cloudy01
         run: |
           aws cloudformation deploy --stack-name CloudyO1 --template-file $GITHUB_WORKSPACE/resources/cfn/cloudy01.yml --capabilities CAPABILITY_IAM
