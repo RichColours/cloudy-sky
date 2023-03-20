@@ -5,6 +5,10 @@ Resources:
 
   DeploymentBucket:
     Type: "AWS::S3::Bucket"
+    Properties:
+      OwnershipControls:
+        Rules:
+          - ObjectOwnership: BucketOwnerEnforced
 
   EventSinkLambdaExecutionRole:
     Type: AWS::IAM::Role
@@ -18,17 +22,17 @@ Resources:
             Action: "sts:AssumeRole"
       ManagedPolicyArns:
         - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
-#      Policies:
-#        - PolicyName: root
-#          PolicyDocument:
-#            Version: 2012-10-17
-#            Statement:
-#              - Sid: IamListAccess
-#                Effect: Allow
-#                Action:
-#                  - 'iam:ListRoles'
-#                  - 'iam:ListUsers'
-#                Resource: '*'
+      Policies:
+        - PolicyName: AllowReadDeploymentBucket
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Sid: Sid1
+                Effect: Allow
+                Action:
+                  - 's3:GetObject'
+                Resource:
+                  - !GetAtt DeploymentBucket.Arn
 
   EventSinkLambda:
     Type: AWS::Lambda::Function
