@@ -1,5 +1,5 @@
 AWSTemplateFormatVersion: "2010-09-09"
-Description: "Cloudy Sky Cfn"
+Description: "Cloudy Sky Cfn 02"
 
 Resources:
 
