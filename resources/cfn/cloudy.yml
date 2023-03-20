@@ -40,12 +40,14 @@ Resources:
       Architectures:
         - "arm64"
       Code:
-        ZipFile: |
-          var aws = require('aws-sdk')
-          exports.handler = async function(event, context) {
-            console.log("Event received!")
-            console.log(event)
-          }
+#        ZipFile: |
+#          var aws = require('aws-sdk')
+#          exports.handler = async function(event, context) {
+#            console.log("Event received!")
+#            console.log(event)
+#          }
+        S3Bucket: !Ref DeploymentBucket
+        S3Key: EventSink.zip
       Handler: "index.handler"
       Role: !GetAtt EventSinkLambdaExecutionRole.Arn
       Runtime: "nodejs16.x"
