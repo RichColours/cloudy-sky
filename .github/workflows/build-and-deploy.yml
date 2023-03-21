@@ -46,11 +46,11 @@ jobs:
     steps:
       - name: Checkout self
         uses: actions/checkout@v3
-      - name: Upload lambda code
+      - name: Upload event sink lambda code
         if: ${{ inputs.doUploadCode }}
         run: |
           bucketName=$(aws cloudformation list-exports | jq '.Exports[] | select(.Name=="CloudyO1-DeploymentBucketName").Value')
-          bucketName=echo $bucketName | sed 's/\"//g'
+          bucketName=$(echo $bucketName | sed 's/\"//g')
           aws s3 cp $GITHUB_WORKSPACE/resources/lambda-code/uselesslambda.zip s3://$bucketName/uselesslambda.zip
   provision-2:
     needs: deploy-code
