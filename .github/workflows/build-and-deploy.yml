@@ -32,7 +32,7 @@ jobs:
         uses: actions/checkout@v3
       - name: Provision cloudy01
         run: |
-          aws cloudformation deploy --stack-name CloudyO1 --template-file $GITHUB_WORKSPACE/resources/cfn/cloudy01.yml --capabilities CAPABILITY_IAM
+          aws cloudformation deploy --stack-name Cloudy01 --template-file $GITHUB_WORKSPACE/resources/cfn/cloudy01.yml --capabilities CAPABILITY_IAM
 
   deploy-code:
     needs: [build-code, provision-1]
