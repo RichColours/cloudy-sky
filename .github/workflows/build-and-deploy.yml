@@ -13,11 +13,13 @@ on:
         default: true
 
 jobs:
+
   build-code:
     runs-on: ubuntu-latest
     steps:
       - name: Compile all code
         run: echo "::warning title:Not got any code to compile!"
+
   provision-1:
     runs-on: ubuntu-latest
     environment: PersonalDev
@@ -31,10 +33,7 @@ jobs:
       - name: Provision cloudy01
         run: |
           aws cloudformation deploy --stack-name CloudyO1 --template-file $GITHUB_WORKSPACE/resources/cfn/cloudy01.yml --capabilities CAPABILITY_IAM
-      - name: Provision cloudy02
-        if: ${{ inputs.doStack02 }}
-        run: |
-          aws cloudformation deploy --stack-name Cloudy02 --template-file $GITHUB_WORKSPACE/resources/cfn/cloudy02.yml --capabilities CAPABILITY_IAM
+
   deploy-code:
     needs: [build-code, provision-1]
     runs-on: ubuntu-latest
@@ -52,6 +51,7 @@ jobs:
           bucketName=$(aws cloudformation list-exports | jq '.Exports[] | select(.Name=="CloudyO1-DeploymentBucketName").Value')
           bucketName=$(echo $bucketName | sed 's/\"//g')
           aws s3 cp $GITHUB_WORKSPACE/resources/lambda-code/uselesslambda.zip s3://$bucketName/uselesslambda.zip
+
   provision-2:
     needs: deploy-code
     runs-on: ubuntu-latest
@@ -67,3 +67,18 @@ jobs:
         if: ${{ inputs.doStack02 }}
         run: |
           aws cloudformation deploy --stack-name Cloudy02 --template-file $GITHUB_WORKSPACE/resources/cfn/cloudy02.yml --capabilities CAPABILITY_IAM
+
+  update-lambda-code:
+    needs: provision-2
+    runs-on: ubuntu-latest
+    environment: PersonalDev
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.key_id }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.secret_key }}
+      AWS_REGION: ${{ inputs.region }}
+    steps:
+      - name: Checkout self
+        uses: actions/checkout@v3
+      - name: List lambdas
+        run: |
+          aws lambda list-functions
