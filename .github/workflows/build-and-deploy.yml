@@ -34,7 +34,7 @@ jobs:
         run: |
           aws cloudformation deploy --stack-name Cloudy02 --template-file $GITHUB_WORKSPACE/resources/cfn/cloudy02.yml --capabilities CAPABILITY_IAM
   deploy-code:
-    needs: build-code
+    needs: [build-code, provision-1]
     runs-on: ubuntu-latest
     environment: PersonalDev
     env:
@@ -47,9 +47,10 @@ jobs:
       - name: Upload lambda code
         if: ${{ inputs.doUploadCode }}
         run: |
-          # aws s3 cp $GITHUB_WORKSPACE/resources/lambda-code/uselesslambda.zip s3://
-          exit 123
+          bucketName=plop
+          aws s3 cp $GITHUB_WORKSPACE/resources/lambda-code/uselesslambda.zip s3://$bucketName/uselesslambda.zip
   provision-2:
+    needs: deploy-code
     runs-on: ubuntu-latest
     environment: PersonalDev
     env:
