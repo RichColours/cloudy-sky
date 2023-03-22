@@ -40,7 +40,7 @@ Resources:
 #            console.log(event)
 #          }
         S3Bucket: !ImportValue Cloudy01-DeploymentBucketName
-        S3Key: "uselesslambda.zip"
-      Handler: "index.handler"
+        S3Key: "event-sink-handler.zip"
+      Handler: "demo.EventSinkHandler"
       Role: !GetAtt EventSinkLambdaExecutionRole.Arn
-      Runtime: "nodejs16.x"
+      Runtime: "java11"
