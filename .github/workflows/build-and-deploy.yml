@@ -23,7 +23,7 @@ jobs:
           java-version: '11'
           distribution: 'corretto'
       - name: Gradle build buildZip
-        working-directory: $GITHUB_WORKSPACE/function-code/event-sink-lambda
+        working-directory: ${{ github.workspace }}/function-code/event-sink-lambda
         run: ./gradlew --no-daemon clean build buildZip
       - uses: actions/upload-artifact@v3
         with:
