@@ -28,7 +28,8 @@ jobs:
       - uses: actions/upload-artifact@v3
         with:
           name: event-sink-lambda.zip
-          path: $GITHUB_WORKSPACE/function-code/event-sink-lambda/app/build/distributions/app.zip
+          path: ${{ github.workspace }}/function-code/event-sink-lambda/app/build/distributions/app.zip
+          if-no-files-found: error
 
   provision-1:
     runs-on: ubuntu-latest
