@@ -60,7 +60,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: event-sink-lambda.zip
-          path: ~/
+          path: ~/event-sink-lambda.zip
       - name: Upload event sink lambda code
         if: ${{ inputs.doUploadCode }}
         run: |
