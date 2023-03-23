@@ -27,7 +27,7 @@ jobs:
         run: ./gradlew --no-daemon clean build buildZip
       - uses: actions/upload-artifact@v3
         with:
-          name: event-sink-lambda.zip
+          name: event-sink-lambda-zip
           path: ${{ github.workspace }}/function-code/event-sink-lambda/app/build/distributions/app.zip
           if-no-files-found: error
 
@@ -59,14 +59,14 @@ jobs:
       - name: Download event-sink-lambda
         uses: actions/download-artifact@v3
         with:
-          name: event-sink-lambda.zip
-          path: ~/event-sink-lambda.zip
+          name: event-sink-lambda-zip
+          path: ~/event-sink-lambda-zip
       - name: Upload event sink lambda code
         if: ${{ inputs.doUploadCode }}
         run: |
           bucketName=$(aws cloudformation list-exports | jq '.Exports[] | select(.Name=="Cloudy01-DeploymentBucketName").Value')
           bucketName=$(echo $bucketName | sed 's/\"//g')
-          aws s3 cp ~/event-sink-lambda.zip s3://$bucketName/event-sink-lambda.zip
+          aws s3 cp ~/event-sink-lambda-zip/app.zip s3://$bucketName/event-sink-lambda.zip
 
   provision-2:
     needs: deploy-code
