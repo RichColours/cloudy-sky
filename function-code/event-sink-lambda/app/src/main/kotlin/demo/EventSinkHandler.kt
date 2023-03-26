@@ -2,18 +2,15 @@ package demo
 
 import com.amazonaws.services.lambda.runtime.Context
 import com.amazonaws.services.lambda.runtime.RequestHandler
-import com.amazonaws.services.lambda.runtime.events.LambdaDestinationEvent
 
-class EventSinkHandler : RequestHandler<LambdaDestinationEvent, String> {
+class EventSinkHandler : RequestHandler<EventBridgeEvent<EventSinkInputEvent>, String> {
 
-    override fun handleRequest(input: LambdaDestinationEvent?, context: Context?): String {
+    override fun handleRequest(input: EventBridgeEvent<EventSinkInputEvent>, context: Context): String {
 
-        context!!.logger.log("--- Welcome to EventSinkLambda ---")
+        context.logger.log("--- Welcome to EventSinkLambda ---")
 
-        context.logger.log(input!!.requestPayload.toString())
-
-        val detail = input.requestPayload["detail"] as Map<String, Any>
-        val helloValue = detail["hello"] as String
+        val detail = input.detail
+        val helloValue = detail!!.hello
 
         context.logger.log(detail.toString())
         context.logger.log(helloValue)
