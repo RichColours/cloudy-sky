@@ -3,6 +3,11 @@ Description: "Cloudy Sky Cfn 02"
 
 Resources:
 
+  CloudyConductorEventBus:
+    Type: AWS::Events::EventBus
+    Properties:
+      Name: CloudyConductorEventBus
+
   EventSinkLambdaExecutionRole:
     Type: AWS::IAM::Role
     Properties:
@@ -15,6 +20,7 @@ Resources:
             Action: "sts:AssumeRole"
       ManagedPolicyArns:
         - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+        - arn:aws:iam::aws:policy/AWSXRayDaemonWriteAccess
       Policies:
         - PolicyName: AllowReadDeploymentBucket
           PolicyDocument:
