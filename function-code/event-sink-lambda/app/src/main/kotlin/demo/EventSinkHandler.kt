@@ -8,10 +8,14 @@ class EventSinkHandler : RequestHandler<LambdaDestinationEvent, String> {
 
     override fun handleRequest(input: LambdaDestinationEvent?, context: Context?): String {
 
-        val detail = input!!.requestPayload["detail"] as Map<String, Object>
-        val helloValue = detail["hello"] as Any
+        context!!.logger.log("--- Welcome to EventSinkLambda ---")
 
-        println(helloValue)
+        val detail = input!!.requestPayload["detail"] as Map<String, Object>
+        val helloValue = detail["hello"] as String
+
+        context.logger.log(input.requestPayload.toString())
+        context.logger.log(detail.toString())
+        context.logger.log(helloValue)
 
         return """
             {
