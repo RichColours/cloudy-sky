@@ -3,10 +3,10 @@ Description: "Cloudy Sky Cfn 02"
 
 Resources:
 
-  CloudyConductorEventBus:
-    Type: AWS::Events::EventBus
-    Properties:
-      Name: CloudyConductorEventBus
+  #CloudyConductorEventBus:
+  #  Type: AWS::Events::EventBus
+  #  Properties:
+  #    Name: CloudyConductorEventBus
 
   EventSinkLambdaExecutionRole:
     Type: AWS::IAM::Role
