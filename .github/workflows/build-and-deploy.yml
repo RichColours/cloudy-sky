@@ -95,6 +95,10 @@ jobs:
     steps:
       - name: Checkout self
         uses: actions/checkout@v3
-      - name: List lambdas
+      - name: Update EventSinkLambda Code
         run: |
-          aws lambda list-functions
+          lambdaName=$(aws lambda list-functions | jq '.Functions[].FunctionArn | select(test(".*EventSinkLambda.*";""))')
+          lambdaName=$(echo $lambdaName | sed 's/\"//g')
+          bucketName=$(aws cloudformation list-exports | jq '.Exports[] | select(.Name=="Cloudy01-DeploymentBucketName").Value')
+          bucketName=$(echo $bucketName | sed 's/\"//g')
+          aws lambda update-function-code --function-name $lambdaName --s3-bucket $bucketName --s3-key event-sink-lambda.zip

@@ -10,10 +10,11 @@ class EventSinkHandler : RequestHandler<LambdaDestinationEvent, String> {
 
         context!!.logger.log("--- Welcome to EventSinkLambda ---")
 
-        val detail = input!!.requestPayload["detail"] as Map<String, Object>
+        context.logger.log(input!!.requestPayload.toString())
+
+        val detail = input.requestPayload["detail"] as Map<String, Any>
         val helloValue = detail["hello"] as String
 
-        context.logger.log(input.requestPayload.toString())
         context.logger.log(detail.toString())
         context.logger.log(helloValue)
 
